@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run Tests and Publish Allure Report
 
 on:
   workflow_dispatch:
@@ -12,6 +12,10 @@ on:
           - all
           - smoke
           - regression
+
+permissions:
+  id-token: write  # Разрешение на получение ID токена
+  contents: write  # Разрешение на запись в репозиторий
 
 jobs:
   tests:
@@ -56,7 +60,7 @@ jobs:
             pytest -m regression --alluredir=allure-results
           else
             pytest --alluredir=allure-results
-          fi  # Закрытие конструкции if
+          fi
         continue-on-error: true
 
       # Генерация Allure отчета
@@ -75,7 +79,7 @@ jobs:
 
       # Публикация Allure-отчета на GitHub Pages
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v4
         with:
           path: allure-report
 
