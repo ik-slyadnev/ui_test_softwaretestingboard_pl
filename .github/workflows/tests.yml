@@ -34,6 +34,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      # Установка браузеров Playwright
+      - name: Install Playwright Browsers
+        run: |
+          python -m playwright install
+
       # Установка Allure
       - name: Install Allure
         run: |
