@@ -72,3 +72,13 @@ jobs:
         with:
           name: allure-report
           path: allure-report
+
+      # Публикация Allure-отчета на GitHub Pages
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: allure-report
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1.2.9
