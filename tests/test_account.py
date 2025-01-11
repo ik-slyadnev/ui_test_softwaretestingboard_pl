@@ -29,7 +29,7 @@ class TestRegistrationPage:
     def test_short_password(self, account_page):
         with allure.step("Открытие страницы регистрации"):
             account_page.open()
-            account_page.click_consent_button()
+            # account_page.click_consent_button()
 
         with allure.step("Заполнение формы с коротким паролем"):
             account_page.create_account(
@@ -51,7 +51,7 @@ class TestRegistrationPage:
     def test_empty_email(self, account_page):
         with allure.step("Открытие страницы регистрации"):
             account_page.open()
-            account_page.click_consent_button()
+            # account_page.click_consent_button()
 
         with allure.step("Заполнение формы с пустым email"):
             account_page.create_account(

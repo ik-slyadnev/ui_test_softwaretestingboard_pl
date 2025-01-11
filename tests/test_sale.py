@@ -21,7 +21,7 @@ class TestCollectionsPage:
     def test_sort_dropdown_presence(self, collections_page):
         with allure.step("Открытие страницы коллекции"):
             collections_page.open()
-            collections_page.click_consent_button()
+            # collections_page.click_consent_button()
 
         with allure.step("Проверка видимости сортировки"):
             expect(collections_page.sorter).to_be_visible()
@@ -31,7 +31,7 @@ class TestCollectionsPage:
     def test_page_title(self, collections_page):
         with allure.step("Открытие страницы коллекции"):
             collections_page.open()
-            collections_page.click_consent_button()
+            # collections_page.click_consent_button()
 
         with allure.step("Проверка текста заголовка"):
             expect(collections_page.title).to_have_text("Eco Friendly")
