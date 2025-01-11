@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run Tests and Publish Allure Report
 
 on:
   workflow_dispatch:
@@ -14,10 +14,9 @@ on:
           - regression
 
 permissions:
-  id-token: write
-  contents: read
-  pages: write
-  
+  id-token: write  # Обязательно для аутентификации в Pages
+  contents: write  # Обязательно для загрузки артефактов и деплоя
+  pages: write     # Обязательно для деплоя на GitHub Pages
 
 jobs:
   tests:
@@ -83,7 +82,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: allure-report
+          path: allure-report  # Путь к сгенерированному отчету
 
       - name: Deploy to GitHub Pages
         id: deployment
