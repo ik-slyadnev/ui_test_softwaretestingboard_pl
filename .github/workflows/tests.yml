@@ -14,8 +14,10 @@ on:
           - regression
 
 permissions:
-  id-token: write  # Разрешение на получение ID токена
-  contents: write  # Разрешение на запись в репозиторий
+  id-token: write
+  contents: read
+  pages: write
+  
 
 jobs:
   tests:
