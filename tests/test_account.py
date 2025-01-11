@@ -11,7 +11,7 @@ class TestRegistrationPage:
     def test_valid_registration(self, account_page):
         with allure.step("Открытие страницы регистрации"):
             account_page.open()
-            account_page.click_consent_button()
+            # account_page.click_consent_button()
 
         with allure.step("Заполнение формы регистрации"):
             account_page.create_account(
