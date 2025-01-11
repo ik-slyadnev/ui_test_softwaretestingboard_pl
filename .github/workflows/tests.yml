@@ -1,4 +1,4 @@
-name: Run Tests and Publish Allure Report
+name: Run Tests
 
 on:
   workflow_dispatch:
