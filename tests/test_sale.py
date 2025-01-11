@@ -10,7 +10,7 @@ class TestCollectionsPage:
     def test_products_display(self, collections_page):
         with allure.step("Открытие страницы коллекции"):
             collections_page.open()
-            # collections_page.click_consent_button()
+            collections_page.click_consent_button()
 
         with allure.step("Проверка наличия товаров"):
             products_count = collections_page.get_products_count()
