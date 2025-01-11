@@ -1,0 +1,66 @@
+name: Run Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: "Тип тестов для запуска: all, smoke или regression"
+        required: true
+        default: "all"
+        type: choice
+        options:
+          - all
+          - smoke
+          - regression
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Установка Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      # Клонирование репозитория
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Установка зависимостей
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Установка Allure
+      - name: Install Allure
+        run: |
+          wget https://github.com/allure-framework/allure2/releases/download/2.21.0/allure-2.21.0.tgz
+          tar -xvf allure-2.21.0.tgz
+          sudo mv allure-2.21.0 /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+
+      # Запуск тестов
+      - name: Run tests
+        run: |
+          if [ "${{ github.event.inputs.test_type }}" == "smoke" ]; then
+            pytest -m smoke --alluredir=allure-results
+          elif [ "${{ github.event.inputs.test_type }}" == "regression" ]; then
+            pytest -m regression --alluredir=allure-results
+          else
+            pytest --alluredir=allure-results
+          fi
+
+      # Генерация Allure отчета
+      - name: Generate Allure Report
+        run: |
+          allure generate allure-results --clean -o allure-report
+
+      # Загрузка Allure отчета как артефакта
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report
+          path: allure-report
