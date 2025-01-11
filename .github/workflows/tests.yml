@@ -80,9 +80,9 @@ jobs:
 
       # Публикация Allure-отчета на GitHub Pages
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v4
         with:
-          path: allure-report  # Путь к сгенерированному отчету
+          path: allure-report
 
       - name: Deploy to GitHub Pages
         id: deployment
