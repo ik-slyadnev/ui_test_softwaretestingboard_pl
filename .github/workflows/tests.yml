@@ -15,7 +15,7 @@ on:
 
 jobs:
   tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       # Установка Python
@@ -56,18 +56,19 @@ jobs:
             pytest -m regression --alluredir=allure-results
           else
             pytest --alluredir=allure-results
-        continue-on-error: true  # Позволяет продолжить выполнение даже при падении тестов
+          fi  # Закрытие конструкции if
+        continue-on-error: true
 
       # Генерация Allure отчета
       - name: Generate Allure Report
-        if: always()  # Выполняется всегда, даже если тесты упали
+        if: always()
         run: |
           allure generate allure-results --clean -o allure-report
 
       # Загрузка Allure отчета как артефакта
       - name: Upload Allure Report
-        if: always()  # Выполняется всегда, даже если тесты упали
-        uses: actions/upload-artifact@v3
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: allure-report
           path: allure-report
